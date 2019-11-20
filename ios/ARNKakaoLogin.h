@@ -5,7 +5,7 @@
 #import <React/RCTBridgeModule.h>
 #endif
 
-@interface ANKakaoLogin : NSObject <RCTBridgeModule>
+@interface ARNKakaoLogin : NSObject <RCTBridgeModule>
 
 @end
   

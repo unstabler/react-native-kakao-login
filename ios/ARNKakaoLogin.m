@@ -1,15 +1,15 @@
 
-#import "ANKakaoLogin.h"
+#import "ARNKakaoLogin.h"
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
 
-@implementation ANKakaoLogin
+@implementation ARNKakaoLogin
 
 - (dispatch_queue_t)methodQueue
 {
     return dispatch_get_main_queue();
 }
 
-RCT_EXPORT_MODULE(ANKakaoLogin)
+RCT_EXPORT_MODULE(ARNKakaoLogin)
 
 - (BOOL)isLogin
 {
