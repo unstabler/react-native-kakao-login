@@ -8,7 +8,6 @@
 {
     return dispatch_get_main_queue();
 }
-
 RCT_EXPORT_MODULE(ARNKakaoLogin)
 
 - (BOOL)isLogin
@@ -34,8 +33,7 @@ RCT_EXPORT_MODULE(ARNKakaoLogin)
     }
 }
 
-RCT_EXPORT_METHOD(getAccessToken,
-                 accessTokenWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(accessTokenWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
     @try {
         resolve([self getAccessToken]);
     }
@@ -46,8 +44,7 @@ RCT_EXPORT_METHOD(getAccessToken,
     }
 }
 
-RCT_EXPORT_METHOD(login,
-                 loginWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(loginWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
     
     [[KOSession sharedSession] close];
     [[KOSession sharedSession] openWithCompletionHandler:^(NSError *error) {
@@ -61,8 +58,7 @@ RCT_EXPORT_METHOD(login,
     
 }
 
-RCT_EXPORT_METHOD(logout,
-                 logoutWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(logoutWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
     
     [[KOSession sharedSession] close];
     [[KOSession sharedSession] logoutAndCloseWithCompletionHandler:^(BOOL success, NSError *error) {
