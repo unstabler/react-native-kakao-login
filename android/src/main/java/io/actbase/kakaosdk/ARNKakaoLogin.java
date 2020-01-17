@@ -27,7 +27,6 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
     private ReactApplicationContext reactContext;
     private KakaoSDKAdapter kakaoSDKAdapter;
     private LoginButton loginButton;
-    private boolean isInit = false;
 
     public ARNKakaoLogin(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -47,7 +46,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         try {
-            if (this.isInit && Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            if (kakaoSDKAdapter != null && Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
                 return;
             }
         }
@@ -65,7 +64,6 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
             kakaoSDKAdapter = new KakaoSDKAdapter(reactContext);
             try {
                 KakaoSDK.init(kakaoSDKAdapter);
-                this.isInit = true;
             }
             catch(Exception ex) {
                 ex.printStackTrace();
@@ -97,13 +95,14 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
     public void logout(Promise promise) {
 
         try {
-            this.initKakaoSDK();
 
-            if (!Session.getCurrentSession().isClosed()) {
-                Session.getCurrentSession().close();
-            }
+            UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
+                @Override
+                public void onCompleteLogout() {
+                    promise.resolve("SUCCESS");
+                }
+            });
 
-            promise.resolve("SUCCESS");
         }
         catch (Exception ex) {
             ex.printStackTrace();
