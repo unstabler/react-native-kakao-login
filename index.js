@@ -1,51 +1,19 @@
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 
-const { ANKakaoLogin, ANKakaoLink, ANKakaoChannel } = NativeModules;
+const { ARNKakaoLogin } = NativeModules;
 
-export const link = {
-  sendFeed: object => {
-    ANKakaoLink.sendFeed(object);
-  },
-  sendList: object => {
-    ANKakaoLink.sendList(object);
-  },
-  sendLocation: object => {
-    ANKakaoLink.sendLocation(object);
-  },
-  sendCommerce: object => {
-    ANKakaoLink.sendCommerce(object);
-  },
-  sendText: object => {
-    ANKakaoLink.sendText(object);
-  },
-  sendURL: object => {
-    ANKakaoLink.sendURL(object);
-  }
+export const getAccessToken = () => {
+  return ARNKakaoLogin.getAccessToken();
 };
-
-export const login = {
-  getAccessToken: () => {
-    return ANKakaoLogin.getAccessToken();
-  },
-  login: () => {
-    return ANKakaoLogin.login();
-  },
-  logout: () => {
-    return ANKakaoLogin.logout();
-  }
+export const login = () => {
+  return ARNKakaoLogin.login();
 };
-
-export const channel = {
-  addFriend: id => {
-    ANKakaoChannel.addFriend(id);
-  },
-  chat: id => {
-    ANKakaoChannel.chat(id);
-  }
+export const logout = () => {
+  return ARNKakaoLogin.logout();
 };
 
 export default {
-  link,
   login,
-  channel
+  logout,
+  getAccessToken,
 };
