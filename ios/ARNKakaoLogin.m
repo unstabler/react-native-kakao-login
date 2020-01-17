@@ -22,6 +22,9 @@ RCT_EXPORT_MODULE(ARNKakaoLogin)
         
         NSNumber * time = [NSNumber numberWithDouble: token.remainingExpireTime];
         NSDictionary * result = @{ @"accessToken": token.accessToken,
+                                   @"refreshToken": token.refreshToken,
+                                   @"accessTokenExpiresAt": [formatter stringFromDate: token.accessTokenExpiresAt],
+                                   @"refreshTokenExpiresAt": [formatter stringFromDate: token.refreshTokenExpiresAt],
                                    @"remainingExpireTime" : time,
                                    @"scopes" : token.scopes
                                    };

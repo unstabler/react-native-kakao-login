@@ -74,6 +74,9 @@ declare module "actbase-native-kakaosdk" {
 
   export interface AccessTokenType {
     accessToken: string;
+    refreshToken: string;
+    accessTokenExpiresAt: string;
+    refreshTokenExpiresAt: string;
     remainingExpireTime: number;
     scopes: string[];
   }
@@ -102,8 +105,8 @@ declare module "actbase-native-kakaosdk" {
   }
 
   export interface ANKakaoLogin {
-    getAccessToken: () => Promise<null | AccessTokenType>;
-    login: () => Promise<null | AccessTokenType>;
+    getAccessToken: () => Promise<AccessTokenType>;
+    login: () => Promise<AccessTokenType>;
     logout: () => Promise<"SUCCESS">;
   }
 

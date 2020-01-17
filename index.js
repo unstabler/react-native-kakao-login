@@ -25,13 +25,13 @@ export const link = {
 
 export const login = {
   getAccessToken: () => {
-    ANKakaoLogin.getAccessToken();
+    return ANKakaoLogin.getAccessToken();
   },
   login: () => {
-    ANKakaoLogin.login();
+    return ANKakaoLogin.login();
   },
   logout: () => {
-    ANKakaoLogin.logout();
+    return ANKakaoLogin.logout();
   }
 };
 
