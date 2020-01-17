@@ -20,6 +20,9 @@ RCT_EXPORT_MODULE(ARNKakaoLogin)
     if ([self isLogin]) {
         KOToken * token = [KOSession sharedSession].token;
 
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+
         NSNumber * time = [NSNumber numberWithDouble: token.remainingExpireTime];
         NSDictionary * result = @{ @"accessToken": token.accessToken,
                                    @"refreshToken": token.refreshToken,
