@@ -25,7 +25,7 @@ dependencies로 되어있어서 같이 설치가 됩니다.
 ### Mostly automatic installation (RN >= 0.60)
 
 ```
-$ npm install @actbase/react-native-kakao-login --save
+$ npm install @actbase/react-native-kakaosdk @actbase/react-native-kakao-login --save
 $ cd ios && pod install && cd ..
 ```
 
