@@ -28,8 +28,8 @@ NSObject* handleKOGender(KOUserGender gender)
 {
     switch(gender){
         case KOUserGenderNull : return [NSNull null];
-        case KOUserGenderMale : return @"MALE";
-        case KOUserGenderFemale : return @"FEMALE";
+        case KOUserGenderMale : return @"male";
+        case KOUserGenderFemale : return @"female";
     }
 }
 
@@ -37,17 +37,17 @@ NSObject* handleKOAgeRange(KOUserAgeRange range)
 {
     switch(range) {
         case KOUserAgeRangeNull : return [NSNull null];
-        case KOUserAgeRangeType0 : return @"0-9";
-        case KOUserAgeRangeType10 : return @"10-14";
-        case KOUserAgeRangeType15 : return @"15-19";
-        case KOUserAgeRangeType20 : return @"20-29";
-        case KOUserAgeRangeType30 : return @"30-39";
-        case KOUserAgeRangeType40 : return @"40-49";
-        case KOUserAgeRangeType50 : return @"50-59";
-        case KOUserAgeRangeType60 : return @"60-69";
-        case KOUserAgeRangeType70 : return @"70-79";
-        case KOUserAgeRangeType80 : return @"80-89";
-        case KOUserAgeRangeType90 : return @"90-";
+        case KOUserAgeRangeType0 : return @"0~9";
+        case KOUserAgeRangeType10 : return @"10~14";
+        case KOUserAgeRangeType15 : return @"15~19";
+        case KOUserAgeRangeType20 : return @"20~29";
+        case KOUserAgeRangeType30 : return @"30~39";
+        case KOUserAgeRangeType40 : return @"40~49";
+        case KOUserAgeRangeType50 : return @"50~59";
+        case KOUserAgeRangeType60 : return @"60~69";
+        case KOUserAgeRangeType70 : return @"70~79";
+        case KOUserAgeRangeType80 : return @"80~89";
+        case KOUserAgeRangeType90 : return @"90~";
     }
 }
 
