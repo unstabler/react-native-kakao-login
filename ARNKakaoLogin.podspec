@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.source_files  = "ios/*.{h,m}"
 
   s.dependency "React"
-  s.dependency "ARNKakaoSDK"
+  s.dependency "ARNKakaoSDK", :path => "../react-native-kakaosdk/"
 
   s.vendored_frameworks = 'KakaoOpenSDK.framework'
 
