@@ -21,13 +21,6 @@ RCT_EXPORT_MODULE(ARNKakaoLogin)
         KOToken * token = [KOSession sharedSession].token;
 
         NSNumber * time = [NSNumber numberWithDouble: token.remainingExpireTime];
-<<<<<<< HEAD
-        NSDictionary * result = @{
-            @"accessToken": token.accessToken,
-            @"scopes" : token.scopes,
-            @"remainingExpireTime" : time
-        };
-=======
         NSDictionary * result = @{ @"accessToken": token.accessToken,
                                    @"refreshToken": token.refreshToken,
                                    @"accessTokenExpiresAt": [formatter stringFromDate: token.accessTokenExpiresAt],
@@ -35,8 +28,6 @@ RCT_EXPORT_MODULE(ARNKakaoLogin)
                                    @"remainingExpireTime" : time,
                                    @"scopes" : token.scopes
                                    };
-        
->>>>>>> 023e870562cf9382cac658819dad85152edae7dc
         return result;
     }
     else {
