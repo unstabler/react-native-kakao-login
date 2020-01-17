@@ -19,13 +19,13 @@ RCT_EXPORT_MODULE(ARNKakaoLogin)
 {
     if ([self isLogin]) {
         KOToken * token = [KOSession sharedSession].token;
-        
+
         NSNumber * time = [NSNumber numberWithDouble: token.remainingExpireTime];
-        NSDictionary * result = @{ @"accessToken": token.accessToken,
-                                   @"remainingExpireTime" : time,
-                                   @"scopes" : token.scopes
-                                   };
-        
+        NSDictionary * result = @{
+            @"accessToken": token.accessToken,
+            @"scopes" : token.scopes,
+            @"remainingExpireTime" : time
+        };
         return result;
     }
     else {
@@ -33,44 +33,38 @@ RCT_EXPORT_MODULE(ARNKakaoLogin)
     }
 }
 
-RCT_EXPORT_METHOD(accessTokenWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
+RCT_REMAP_METHOD(getAccessToken, accessTokenWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
     @try {
         resolve([self getAccessToken]);
     }
     @catch(NSException * e) {
-        NSLog(@"%@", e);
-        NSLog(@"ERRORR....");
-        reject(@"RNCKakaoSDK", e.userInfo.description, nil);
+        reject(@"ARNKakaoLogin", e.userInfo.description, nil);
     }
 }
 
-RCT_EXPORT_METHOD(loginWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
-    
+RCT_REMAP_METHOD(login, loginWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
     [[KOSession sharedSession] close];
     [[KOSession sharedSession] openWithCompletionHandler:^(NSError *error) {
         if (![[KOSession sharedSession] isOpen]) {
-            reject(@"RNCKakaoSDK", error.userInfo.description, nil);
+            reject(@"ARNKakaoLogin", error.userInfo.description, nil);
         }
         else {
             resolve([self getAccessToken]);
         }
      }];
-    
 }
 
-RCT_EXPORT_METHOD(logoutWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
-    
+RCT_REMAP_METHOD(logout, logoutWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject) {
     [[KOSession sharedSession] close];
     [[KOSession sharedSession] logoutAndCloseWithCompletionHandler:^(BOOL success, NSError *error) {
         if (!success) {
-            reject(@"RNCKakaoSDK", error.userInfo.description, nil);
+            reject(@"ARNKakaoLogin", error.userInfo.description, nil);
         }
         else {
             resolve(@"SUCCESS");
         }
     }];
-    
 }
 
 @end
-  
+
