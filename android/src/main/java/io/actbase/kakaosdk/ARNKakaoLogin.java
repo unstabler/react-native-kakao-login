@@ -55,9 +55,12 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
         super(reactContext);
 
         this.reactContext = reactContext;
+        if (KakaoSDK.getAdapter() == null)
+            this.initKakaoSDK();
+        else
+            Session.getCurrentSession().clearCallbacks();
         this.reactContext.addActivityEventListener(this);
 
-        initKakaoSDK();
         this.loginButton = new LoginButton(this.reactContext);
     }
 
@@ -69,11 +72,10 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         try {
-            if (kakaoSDKAdapter != null && Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            if (KakaoSDK.getAdapter() != null && Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
                 return;
             }
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
         }
     }
 
@@ -82,15 +84,12 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
 
     }
 
-    public void initKakaoSDK() {
-        if (kakaoSDKAdapter == null) {
-            kakaoSDKAdapter = new KakaoSDKAdapter(reactContext);
-            try {
-                KakaoSDK.init(kakaoSDKAdapter);
-            }
-            catch(Exception ex) {
-                ex.printStackTrace();
-            }
+    private void initKakaoSDK() {
+        this.kakaoSDKAdapter = new KakaoSDKAdapter(this.reactContext);
+        try {
+            KakaoSDK.init(this.kakaoSDKAdapter);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -102,8 +101,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
     private void handleKOBoolean(WritableMap map, String key, OptionalBoolean v) {
         if (v == null || v.getBoolean() == null) {
             map.putNull(key);
-        }
-        else {
+        } else {
             map.putBoolean(key, v.getBoolean());
         }
     }
@@ -120,8 +118,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
 
             Session.getCurrentSession().clearCallbacks();
             loginButton.open(AuthType.KAKAO_LOGIN_ALL, new SessionCallback(promise));
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             promise.reject(ex);
         }
@@ -145,8 +142,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
                 }
             });
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             promise.reject(ex);
         }
@@ -169,8 +165,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
             map.putString("remainingExpireTime", format(new Date(token.getRemainingExpireTime())));
 
             promise.resolve(map);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             promise.reject(ex);
         }
@@ -220,8 +215,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
 
                 if (account.getAgeRange() == null || account.getAgeRange() == AgeRange.AGE_RANGE_UNKNOWN) {
                     mapAccount.putNull("ageRange");
-                }
-                else {
+                } else {
                     mapAccount.putString("ageRange", account.getAgeRange().toString());
                 }
 
@@ -231,8 +225,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
 
                 if (account.getGender() == null || account.getGender() == Gender.UNKNOWN) {
                     mapAccount.putNull("gender");
-                }
-                else {
+                } else {
                     mapAccount.putString("gender", account.getGender().toString());
                 }
 
