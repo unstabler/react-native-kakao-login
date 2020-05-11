@@ -53,14 +53,14 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
 
     public ARNKakaoLogin(ReactApplicationContext reactContext) {
         super(reactContext);
-
         this.reactContext = reactContext;
+
         if (KakaoSDK.getAdapter() == null)
             this.initKakaoSDK();
         else
             Session.getCurrentSession().clearCallbacks();
-        this.reactContext.addActivityEventListener(this);
 
+        this.reactContext.addActivityEventListener(this);
         this.loginButton = new LoginButton(this.reactContext);
     }
 

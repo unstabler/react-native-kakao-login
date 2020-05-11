@@ -37,8 +37,8 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: safeExtGet('kakaoSdkVersion', '1.25.0')
-    implementation group: 'com.kakao.sdk', name: 'kakaotalk', version: safeExtGet('kakaoSdkVersion', '1.25.0')
-    implementation group: 'com.kakao.sdk', name: 'kakaostory', version: safeExtGet('kakaoSdkVersion', '1.25.0')
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: safeExtGet('kakaoSdkVersion', '1.28.0')
+    implementation group: 'com.kakao.sdk', name: 'kakaotalk', version: safeExtGet('kakaoSdkVersion', '1.28.0')
+    implementation group: 'com.kakao.sdk', name: 'kakaostory', version: safeExtGet('kakaoSdkVersion', '1.28.0')
 }
   
