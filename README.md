@@ -37,13 +37,39 @@ $ react-native link @actbase/react-native-kakaosdk @actbase/react-native-kakao-l
 $ cd ios && pod install && cd ..
 ```
 
-### `카카오로그인`
-
-// TODO: ///
-
 
 ## 사용방법
 
+```
 
-// TODO: ///
+import KakaoLogins from '@actbase/react-native-kakao-login';
 
+// 카카오 로그인 시 처리부문
+const loginOutput = await KakaoLogins.login();
+
+```
+
+|변수명       |설명               |
+|-----------|------------------|
+|accessToken|카카오의 accessToken|
+|refreshToken|카카오의 refreshToken|
+|accessTokenExpiresAt|카카오의 accessToken만료일|
+|refreshTokenExpiresAt|카카오의 refreshToken만료일|
+|scopes|사용권한|
+
+
+```
+
+import KakaoLogins from '@actbase/react-native-kakao-login';
+
+// 카카오 회원정보 가져오기
+const profile = await KakaoLogins.getProfile();
+
+```
+
+|변수명|설명               |
+|--|------------------|
+|ID|카카오계정 고유키|
+|hasSignedUp|기가입여부|
+|account|회원정보[https://developers.kakao.com/sdk/reference/ios-legacy/release/Classes/KOUserMe.html]|
+|properties|기타자료|
