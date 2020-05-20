@@ -62,6 +62,15 @@ const loginOutput = await KakaoLogins.login();
 
 import KakaoLogins from '@actbase/react-native-kakao-login';
 
+// 카카오 로그아웃시 처리
+await KakaoLogins.logout();
+
+
+// 카카오 액세스 토큰 가져오는 명령, 로그인 시 자동으로 로그아웃 후 처리됨에 따라
+// 별도로 값만 가져올 경우 사용.
+const accessToken = await KakaoLogins.getAccessToken();
+
+
 // 카카오 회원정보 가져오기
 const profile = await KakaoLogins.getProfile();
 
