@@ -13,7 +13,7 @@ const case_convert = (data) => {
   const args = {};
   for (const key of Object.keys(data)) {
     const nkey = key.replace(/(?:^|\.?)([A-Z])/g, (x, y) => '_' + y.toLowerCase()).replace(/^_/, '');
-    if (data[key] && typeof data[key] === 'object' && Object.keys(data[key])?.length > 0) {
+    if (data[key] && typeof data[key] === 'object' && !data[key]?.push && Object.keys(data[key])?.length > 0) {
       args[nkey] = case_convert(data[key]);
     } else {
       args[nkey] = data[key];
