@@ -18,27 +18,32 @@ def safeExtGet(prop, fallback) {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 28)
+    compileSdkVersion safeExtGet('compileSdkVersion', 29)
 
     defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 16)
-        targetSdkVersion safeExtGet('targetSdkVersion', 28)
+        minSdkVersion safeExtGet('minSdkVersion', 19)
+        targetSdkVersion safeExtGet('targetSdkVersion', 29)
         versionCode 1
         versionName "1.0"
     }
+
     lintOptions {
         abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 repositories {
-    maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/' }
+    maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: safeExtGet('kakaoSdkVersion', '1.28.0')
-    implementation group: 'com.kakao.sdk', name: 'kakaotalk', version: safeExtGet('kakaoSdkVersion', '1.28.0')
-    implementation group: 'com.kakao.sdk', name: 'kakaostory', version: safeExtGet('kakaoSdkVersion', '1.28.0')
+    implementation "com.kakao.sdk:v2-user:2.0.2" // 카카오 로그인, 사용자 관리
+    implementation "com.kakao.sdk:v2-talk:2.0.2" // 친구, 메시지(카카오톡)
+    implementation "com.kakao.sdk:v2-story:2.0.2" // 카카오스토리
 }
   

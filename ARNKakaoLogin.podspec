@@ -11,17 +11,23 @@ Pod::Spec.new do |s|
   s.homepage  = "https://github.com/trabricks/react-native-login#readme"
   s.license   = "MIT"
 
-  s.platform      = :ios, "9.0"
+  s.platform      = :ios, "11.0"
   s.framework     = 'UIKit'
   s.requires_arc  = true
 
   s.source        = { :git => "https://github.com/trabricks/react-native-kakao-login.git" }
-  s.source_files  = "ios/*.{h,m}"
+  s.source_files  = "ios/*.{h,m,swift}"
 
   s.dependency "React"
-  s.dependency "ARNKakaoSDK"
+  s.dependency "KakaoSDKCommon"
+  s.dependency "KakaoSDKAuth"
+  s.dependency "KakaoSDKUser"
+  s.dependency "KakaoSDKTalk"
+  s.dependency "KakaoSDKTemplate"
 
-  s.vendored_frameworks = 'KakaoOpenSDK.framework'
+#  s.dependency "ARNKakaoSDK"
+
+#  s.vendored_frameworks = 'KakaoOpenSDK.framework'
 
 end
 
