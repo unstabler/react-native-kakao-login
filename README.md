@@ -28,15 +28,14 @@ RN 0.60 이상 사용가능하며, Pod 필수입니다.
 
 ### Mostly automatic installation (RN >= 0.60)
 
-```
+```bash
 $ npm install @actbase/react-native-kakao-login --save
 $ cd ios && pod install && cd ..
 ```
 
 ## 사용방법
 
-```
-
+```js
 import KakaoLogin from '@actbase/react-native-kakao-login';
 
 // 카카오 로그인 시 처리부문
@@ -53,8 +52,7 @@ const loginOutput = await KakaoLogin.login();
 |scopes|사용권한|
 
 
-```
-
+```js
 import KakaoLogin from '@actbase/react-native-kakao-login';
 
 // 카카오 로그아웃시 처리
@@ -76,5 +74,5 @@ const profile = await KakaoLogins.getProfile();
 |--|------------------|
 |id|카카오계정 고유키|
 |connected_at|연결한 일자|
-|kakao_account|회원정보[https://developers.kakao.com/sdk/reference/ios-legacy/release/Classes/KOUserMe.html]|
+|kakao_account|[회원정보](https://developers.kakao.com/sdk/reference/ios-legacy/release/Classes/KOUserMe.html)|
 |properties|기타자료|
