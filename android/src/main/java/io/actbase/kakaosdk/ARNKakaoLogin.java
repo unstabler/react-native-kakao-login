@@ -14,9 +14,6 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.bridge.WritableNativeArray;
-import com.facebook.react.bridge.WritableNativeMap;
-import com.google.gson.Gson;
 import com.kakao.sdk.auth.LoginClient;
 import com.kakao.sdk.common.KakaoSdk;
 import com.kakao.sdk.user.UserApiClient;
@@ -24,12 +21,8 @@ import com.kakao.sdk.user.model.Account;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class ARNKakaoLogin extends ReactContextBaseJavaModule implements ActivityEventListener {
 
@@ -76,14 +69,39 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
   }
 
 
+  private void loginWithKakaoAccount(Promise promise) {
+    LoginClient.getInstance().loginWithKakaoAccount(context, (token, error) -> {
+      try {
+        if (error != null) {
+          throw new Exception(error.getMessage());
+        }
+        WritableMap map = Arguments.createMap();
+        map.putString("accessToken", token.getAccessToken());
+        map.putString("refreshToken", token.getRefreshToken());
+        map.putString("accessTokenExpiresAt", format(token.getAccessTokenExpiresAt()));
+        map.putString("refreshTokenExpiresAt", format(token.getRefreshTokenExpiresAt()));
+
+        WritableArray scopes = Arguments.createArray();
+        for (String scope : token.getScopes()) {
+          scopes.pushString(scope);
+        }
+        map.putArray("scopes", scopes);
+
+        promise.resolve(map);
+      } catch (Throwable ex) {
+        promise.reject(ex);
+      }
+      return null;
+    });
+  }
 
   @ReactMethod
   public void login(final Promise promise) {
     if (LoginClient.getInstance().isKakaoTalkLoginAvailable(context)) {
-      LoginClient.getInstance().loginWithKakaoTalk(context, (token, error) -> {
+      LoginClient.getInstance().loginWithKakaoTalk(context.getCurrentActivity(), (token, error) -> {
         try {
           if (error != null) {
-            throw error.getCause();
+            throw new Exception(error.getMessage());
           }
 
           WritableMap map = Arguments.createMap();
@@ -100,34 +118,13 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
 
           promise.resolve(map);
         } catch (Throwable ex) {
+//          loginWithKakaoAccount(promise);
           promise.reject(ex);
         }
         return null;
       });
     } else {
-      LoginClient.getInstance().loginWithKakaoAccount(context, (token, error) -> {
-        try {
-          if (error != null) {
-            throw error.getCause();
-          }
-          WritableMap map = Arguments.createMap();
-          map.putString("accessToken", token.getAccessToken());
-          map.putString("refreshToken", token.getRefreshToken());
-          map.putString("accessTokenExpiresAt", format(token.getAccessTokenExpiresAt()));
-          map.putString("refreshTokenExpiresAt", format(token.getRefreshTokenExpiresAt()));
-
-          WritableArray scopes = Arguments.createArray();
-          for (String scope : token.getScopes()) {
-            scopes.pushString(scope);
-          }
-          map.putArray("scopes", scopes);
-
-          promise.resolve(map);
-        } catch (Throwable ex) {
-          promise.reject(ex);
-        }
-        return null;
-      });
+      loginWithKakaoAccount(promise);
     }
   }
 
@@ -141,7 +138,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
     LoginClient.getInstance().loginWithNewScopes(context, perms, (token, error) -> {
       try {
         if (error != null) {
-          throw error.getCause();
+          throw new Exception(error.getMessage());
         }
         WritableMap map = Arguments.createMap();
         map.putString("accessToken", token.getAccessToken());
@@ -191,7 +188,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
     UserApiClient.getInstance().accessTokenInfo((tokenInfo, error) -> {
       try {
         if (error != null) {
-          throw error.getCause();
+          throw new Exception(error.getMessage());
         }
 
         WritableMap map = Arguments.createMap();
@@ -211,7 +208,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
     UserApiClient.getInstance().me((user, error) -> {
       try {
         if (error != null) {
-          throw error.getCause();
+          throw new Exception(error.getMessage());
         }
 
         WritableMap map = Arguments.createMap();
