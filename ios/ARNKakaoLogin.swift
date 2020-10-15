@@ -203,64 +203,86 @@ public class ARNKakaoLogin: NSObject {
                     var origin: Account = user!.kakaoAccount!
                     
                     if (origin.emailNeedsAgreement != nil) {
-                        kakaoAccount.updateValue(origin.email, forKey: "email")
+                        if (origin.emailNeedsAgreement == false) {
+                            kakaoAccount.updateValue(origin.email, forKey: "email")
+                        }
                         kakaoAccount.updateValue(origin.emailNeedsAgreement, forKey: "emailNeedsAgreement")
                         kakaoAccount.updateValue(origin.isEmailValid, forKey: "isEmailValid")
                         kakaoAccount.updateValue(origin.isEmailVerified, forKey: "isEmailVerified")
                     }
                     
                     if (origin.birthdayNeedsAgreement != nil) {
-                        kakaoAccount.updateValue(origin.birthday, forKey: "birthday")
+                        if (origin.birthdayNeedsAgreement == false) {
+                            kakaoAccount.updateValue(origin.birthday, forKey: "birthday")
+                        }
                         kakaoAccount.updateValue(origin.birthdayNeedsAgreement, forKey: "birthdayNeedsAgreement")
                     }
                     
                     if (origin.birthyearNeedsAgreement != nil) {
-                        kakaoAccount.updateValue(origin.birthyear, forKey: "birthyear")
+                        if (origin.birthyearNeedsAgreement == false) {
+                            kakaoAccount.updateValue(origin.birthyear, forKey: "birthyear")
+                        }
                         kakaoAccount.updateValue(origin.birthyearNeedsAgreement, forKey: "birthyearNeedsAgreement")
                     }
                     
                     if (origin.genderNeedsAgreement != nil) {
-                        kakaoAccount.updateValue(origin.gender?.rawValue, forKey: "gender")
+                        if (origin.genderNeedsAgreement == false) {
+                            kakaoAccount.updateValue(origin.gender?.rawValue, forKey: "gender")
+                        }
                         kakaoAccount.updateValue(origin.genderNeedsAgreement, forKey: "genderNeedsAgreement")
                     }
                     
                     if (origin.ciNeedsAgreement != nil) {
-                        kakaoAccount.updateValue(origin.ci, forKey: "ci")
+                        if (origin.ciNeedsAgreement == false) {
+                            kakaoAccount.updateValue(origin.ci, forKey: "ci")
+                        }
                         kakaoAccount.updateValue(dateFormatter.string(from: origin.ciAuthenticatedAt!), forKey: "ciAuthenticatedAt")
                         kakaoAccount.updateValue(origin.ciNeedsAgreement, forKey: "ciNeedsAgreement")
                     }
                     
                     if (origin.legalBirthDateNeedsAgreement != nil) {
-                        kakaoAccount.updateValue(origin.legalBirthDate, forKey: "legalBirthDate")
+                        if (origin.legalBirthDateNeedsAgreement == false) {
+                            kakaoAccount.updateValue(origin.legalBirthDate, forKey: "legalBirthDate")
+                        }
                         kakaoAccount.updateValue(origin.legalBirthDateNeedsAgreement, forKey: "legalBirthDateNeedsAgreement")
                     }
                     
                     if (origin.legalGenderNeedsAgreement != nil) {
-                        kakaoAccount.updateValue(origin.legalGender?.rawValue, forKey: "legalGender")
+                        if (origin.legalGenderNeedsAgreement == false) {
+                            kakaoAccount.updateValue(origin.legalGender?.rawValue, forKey: "legalGender")
+                        }
                         kakaoAccount.updateValue(origin.legalGenderNeedsAgreement, forKey: "legalGenderNeedsAgreement")
                     }
                     
                     if (origin.legalNameNeedsAgreement != nil) {
-                        kakaoAccount.updateValue(origin.legalName, forKey: "legalName")
+                        if (origin.legalNameNeedsAgreement == false) {
+                            kakaoAccount.updateValue(origin.legalName, forKey: "legalName")
+                        }
                         kakaoAccount.updateValue(origin.legalNameNeedsAgreement, forKey: "legalNameNeedsAgreement")
                     }
 
                     if (origin.ageRangeNeedsAgreement != nil) {
-                        kakaoAccount.updateValue(origin.ageRange?.rawValue, forKey: "ageRange")
+                        if (origin.ageRangeNeedsAgreement == false) {
+                            kakaoAccount.updateValue(origin.ageRange?.rawValue, forKey: "ageRange")
+                        }
                         kakaoAccount.updateValue(origin.ageRangeNeedsAgreement, forKey: "ageRangeNeedsAgreement")
                     }
                     
                     if (origin.phoneNumberNeedsAgreement != nil) {
-                        kakaoAccount.updateValue(origin.phoneNumber, forKey: "phoneNumber")
+                        if (origin.phoneNumberNeedsAgreement == false) {
+                            kakaoAccount.updateValue(origin.phoneNumber, forKey: "phoneNumber")
+                        }
                         kakaoAccount.updateValue(origin.phoneNumberNeedsAgreement, forKey: "phoneNumberNeedsAgreement")
                     }
                     
                     if (origin.profileNeedsAgreement != nil) {
-                        kakaoAccount.updateValue([
-                            "nickname": origin.profile?.nickname,
-                            "profileImageUrl": origin.profile?.profileImageUrl,
-                            "thumbnailImageUrl": origin.profile?.thumbnailImageUrl,
-                        ], forKey: "profile")
+                        if (origin.profileNeedsAgreement == false) {
+                            kakaoAccount.updateValue([
+                                "nickname": origin.profile?.nickname,
+                                "profileImageUrl": origin.profile?.profileImageUrl,
+                                "thumbnailImageUrl": origin.profile?.thumbnailImageUrl,
+                            ], forKey: "profile")
+                        }
                         kakaoAccount.updateValue(origin.profileNeedsAgreement, forKey: "profileNeedsAgreement")
                     }
                     map.updateValue(kakaoAccount, forKey: "kakaoAccount")
