@@ -1,6 +1,6 @@
 {
   "name": "@actbase/react-native-kakao-login",
-  "version": "2.0.11",
+  "version": "2.0.13",
   "description": "Kakao Login v2 For React-Native",
   "main": "index.js",
   "types": "index.d.ts",

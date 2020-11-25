@@ -68,6 +68,9 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
     return sdf.format(date);
   }
 
+  private boolean toBool(Boolean b) {
+    return b == null ? false : b;
+  }
 
   private void loginWithKakaoAccount(Promise promise) {
     LoginClient.getInstance().loginWithKakaoAccount(context, (token, error) -> {
@@ -118,7 +121,10 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
 
           promise.resolve(map);
         } catch (Throwable ex) {
-//          loginWithKakaoAccount(promise);
+          if (ex.getMessage().contains("not connected to")) {
+            loginWithKakaoAccount(promise);
+          }
+          ex.printStackTrace();
           promise.reject(ex);
         }
         return null;
@@ -223,30 +229,33 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
             if (origin.getEmailNeedsAgreement() == Boolean.FALSE) {
               kakaoAccount.putString("email", origin.getEmail());
             }
-            kakaoAccount.putBoolean("emailNeedsAgreement", origin.getEmailNeedsAgreement());
-            kakaoAccount.putBoolean("isEmailValid", origin.isEmailValid());
-            kakaoAccount.putBoolean("isEmailVerified", origin.isEmailVerified());
+            kakaoAccount.putBoolean("emailNeedsAgreement", toBool(origin.getEmailNeedsAgreement()));
+            kakaoAccount.putBoolean("isEmailValid", toBool(origin.isEmailValid()));
+            kakaoAccount.putBoolean("isEmailVerified", toBool(origin.isEmailVerified()));
           }
 
           if (origin.getBirthdayNeedsAgreement() != null) {
             if (origin.getBirthdayNeedsAgreement() == Boolean.FALSE) {
               kakaoAccount.putString("birthday", origin.getBirthday());
             }
-            kakaoAccount.putBoolean("birthdayNeedsAgreement", origin.getBirthdayNeedsAgreement());
+            kakaoAccount
+                .putBoolean("birthdayNeedsAgreement", toBool(origin.getBirthdayNeedsAgreement()));
           }
 
           if (origin.getBirthyearNeedsAgreement() != null) {
             if (origin.getBirthyearNeedsAgreement() == Boolean.FALSE) {
               kakaoAccount.putString("birthyear", origin.getBirthyear());
             }
-            kakaoAccount.putBoolean("birthyearNeedsAgreement", origin.getBirthyearNeedsAgreement());
+            kakaoAccount
+                .putBoolean("birthyearNeedsAgreement", toBool(origin.getBirthyearNeedsAgreement()));
           }
 
           if (origin.getGenderNeedsAgreement() != null) {
             if (origin.getGenderNeedsAgreement() == Boolean.FALSE && origin.getGender() != null) {
               kakaoAccount.putString("gender", origin.getGender().toString());
             }
-            kakaoAccount.putBoolean("genderNeedsAgreement", origin.getGenderNeedsAgreement());
+            kakaoAccount
+                .putBoolean("genderNeedsAgreement", toBool(origin.getGenderNeedsAgreement()));
           }
 
           if (origin.getCiNeedsAgreement() != null) {
@@ -254,7 +263,7 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
               kakaoAccount.putString("ci", origin.getCi().toString());
             }
             kakaoAccount.putString("ciAuthenticatedAt", format(origin.getCiAuthenticatedAt()));
-            kakaoAccount.putBoolean("ciNeedsAgreement", origin.getCiNeedsAgreement());
+            kakaoAccount.putBoolean("ciNeedsAgreement", toBool(origin.getCiNeedsAgreement()));
           }
 
           if (origin.getLegalBirthDateNeedsAgreement() != null) {
@@ -262,29 +271,34 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
               kakaoAccount.putString("legalBirthDate", origin.getLegalBirthDate());
             }
             kakaoAccount.putBoolean("legalBirthDateNeedsAgreement",
-                origin.getLegalBirthDateNeedsAgreement());
+                toBool(origin.getLegalBirthDateNeedsAgreement()));
           }
 
           if (origin.getLegalGenderNeedsAgreement() != null) {
-            if (origin.getLegalGenderNeedsAgreement() == Boolean.FALSE && origin.getLegalGender() != null) {
+            if (origin.getLegalGenderNeedsAgreement() == Boolean.FALSE
+                && origin.getLegalGender() != null) {
               kakaoAccount.putString("legalGender", origin.getLegalGender().toString());
             }
             kakaoAccount
-                .putBoolean("legalGenderNeedsAgreement", origin.getLegalGenderNeedsAgreement());
+                .putBoolean("legalGenderNeedsAgreement",
+                    toBool(origin.getLegalGenderNeedsAgreement()));
           }
 
           if (origin.getLegalNameNeedsAgreement() != null) {
             if (origin.getLegalNameNeedsAgreement() == Boolean.FALSE) {
               kakaoAccount.putString("legalName", origin.getLegalName());
             }
-            kakaoAccount.putBoolean("legalNameNeedsAgreement", origin.getLegalNameNeedsAgreement());
+            kakaoAccount
+                .putBoolean("legalNameNeedsAgreement", toBool(origin.getLegalNameNeedsAgreement()));
           }
 
           if (origin.getAgeRangeNeedsAgreement() != null) {
-            if (origin.getAgeRangeNeedsAgreement() == Boolean.FALSE && origin.getAgeRange() != null) {
+            if (origin.getAgeRangeNeedsAgreement() == Boolean.FALSE
+                && origin.getAgeRange() != null) {
               kakaoAccount.putString("ageRange", origin.getAgeRange().toString());
             }
-            kakaoAccount.putBoolean("ageRangeNeedsAgreement", origin.getAgeRangeNeedsAgreement());
+            kakaoAccount
+                .putBoolean("ageRangeNeedsAgreement", toBool(origin.getAgeRangeNeedsAgreement()));
           }
 
           if (origin.getPhoneNumberNeedsAgreement() != null) {
@@ -292,7 +306,8 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
               kakaoAccount.putString("phoneNumber", origin.getPhoneNumber());
             }
             kakaoAccount
-                .putBoolean("phoneNumberNeedsAgreement", origin.getPhoneNumberNeedsAgreement());
+                .putBoolean("phoneNumberNeedsAgreement",
+                    toBool(origin.getPhoneNumberNeedsAgreement()));
           }
 
           if (origin.getProfileNeedsAgreement() != null) {
@@ -303,7 +318,8 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
               profile.putString("thumbnailImageUrl", origin.getProfile().getThumbnailImageUrl());
               kakaoAccount.putMap("profile", profile);
             }
-            kakaoAccount.putBoolean("profileNeedsAgreement", origin.getProfileNeedsAgreement());
+            kakaoAccount
+                .putBoolean("profileNeedsAgreement", toBool(origin.getProfileNeedsAgreement()));
           }
 
           map.putMap("kakaoAccount", kakaoAccount);
@@ -313,7 +329,9 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
           WritableMap properties = Arguments.createMap();
           Map<String, String> origin = user.getProperties();
           for (String key : origin.keySet()) {
-            properties.putString(key, origin.get(key));
+            if (origin.get(key) != null) {
+              properties.putString(key, origin.get(key));
+            }
           }
           map.putMap("properties", properties);
         }
