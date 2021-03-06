@@ -93,9 +93,15 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
         map.putString("refreshTokenExpiresAt", format(token.getRefreshTokenExpiresAt()));
 
         WritableArray scopes = Arguments.createArray();
-        for (String scope : token.getScopes()) {
-          scopes.pushString(scope);
+
+        List<String> givenScopes = token.getScopes();
+
+        if (givenScopes != null) {
+            for (String scope : givenScopes) {
+              scopes.pushString(scope);
+            }
         }
+
         map.putArray("scopes", scopes);
 
         promise.resolve(map);
@@ -122,9 +128,15 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
           map.putString("refreshTokenExpiresAt", format(token.getRefreshTokenExpiresAt()));
 
           WritableArray scopes = Arguments.createArray();
-          for (String scope : token.getScopes()) {
-            scopes.pushString(scope);
+
+          List<String> givenScopes = token.getScopes();
+
+          if (givenScopes != null) {
+              for (String scope : givenScopes) {
+                scopes.pushString(scope);
+              }
           }
+
           map.putArray("scopes", scopes);
 
           promise.resolve(map);
@@ -161,9 +173,15 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
         map.putString("refreshTokenExpiresAt", format(token.getRefreshTokenExpiresAt()));
 
         WritableArray scopes = Arguments.createArray();
-        for (String scope : token.getScopes()) {
-          scopes.pushString(scope);
+
+        List<String> givenScopes = token.getScopes();
+
+        if (givenScopes != null) {
+            for (String scope : givenScopes) {
+              scopes.pushString(scope);
+            }
         }
+
         map.putArray("scopes", scopes);
 
         promise.resolve(map);
