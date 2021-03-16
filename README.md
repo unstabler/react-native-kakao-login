@@ -1,4 +1,11 @@
-# 카카오로그인 for React Native
+# 카카오로그인 for React Native @ 2.0.18
+
+- [카카오로그인 for React Native @ 2.0.18](#카카오로그인-for-react-native--2018)
+  - [기본설정](#기본설정)
+  - [Getting started](#getting-started)
+    - [Mostly automatic installation (RN >= 0.60)](#mostly-automatic-installation-rn--060)
+  - [사용방법](#사용방법)
+- [Changes](#changes)
 
 ![platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS-brightgreen.svg?style=flat-square&colorB=191A17)
 [![npm](https://img.shields.io/npm/v/@actbase/react-native-kakao-login.svg?style=flat-square)](https://www.npmjs.com/package/@actbase/react-native-kakao-login)
@@ -76,3 +83,11 @@ const profile = await KakaoLogins.getProfile();
 |connected_at|연결한 일자|
 |kakao_account|[회원정보](https://developers.kakao.com/sdk/reference/ios-legacy/release/Classes/KOUserMe.html)|
 |properties|기타자료|
+
+
+# Changes
+
+- 2.0.18 
+  - android kakao sdk 메소드 위치 변경 대응
+- 2.0.17
+  - ios kakao sdk 메소드 위치 변경 대응

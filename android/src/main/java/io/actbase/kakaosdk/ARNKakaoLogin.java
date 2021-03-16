@@ -19,7 +19,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.kakao.sdk.auth.LoginClient;
+// import com.kakao.sdk.auth.UserApiClient; // remove from kakao login 2.4
 import com.kakao.sdk.common.KakaoSdk;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
@@ -81,7 +81,8 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
   }
 
   private void loginWithKakaoAccount(Promise promise) {
-    LoginClient.getInstance().loginWithKakaoAccount(context, (token, error) -> {
+    // change class into user api at kakao sdk 2.4 
+    UserApiClient.getInstance().loginWithKakaoAccount(context, (token, error) -> {
       try {
         if (error != null) {
           throw new Exception(error.getMessage());
@@ -114,8 +115,9 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
 
   @ReactMethod
   public void login(final Promise promise) {
-    if (LoginClient.getInstance().isKakaoTalkLoginAvailable(context)) {
-      LoginClient.getInstance().loginWithKakaoTalk(context.getCurrentActivity(), (token, error) -> {
+    // change class into user api at kakao sdk 2.4
+    if (UserApiClient.getInstance().isKakaoTalkLoginAvailable(context)) {
+      UserApiClient.getInstance().loginWithKakaoTalk(context.getCurrentActivity(), (token, error) -> {
         try {
           if (error != null) {
             throw new Exception(error.getMessage());
@@ -160,8 +162,8 @@ public class ARNKakaoLogin extends ReactContextBaseJavaModule implements Activit
     for (int i = 0; i < permissions.size(); i++) {
       perms.add(permissions.getString(i));
     }
-
-    LoginClient.getInstance().loginWithNewScopes(context, perms, (token, error) -> {
+    // change class into user api at kakao sdk 2.4
+    UserApiClient.getInstance().loginWithNewScopes(context, perms, (token, error) -> {
       try {
         if (error != null) {
           throw new Exception(error.getMessage());
