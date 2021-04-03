@@ -75,5 +75,7 @@ declare module '@actbase/react-native-kakao-login' {
     unlink: () => Promise<'SUCCESS'>;
   }
 
-  export default ARNKakaoLogin;
+  const KakaoLogin: ARNKakaoLogin;
+
+  export default KakaoLogin;
 }
